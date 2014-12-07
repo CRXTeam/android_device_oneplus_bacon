@@ -18,7 +18,7 @@
 -include device/oppo/msm8974-common/BoardConfigCommon.mk
 
 # Kernel
-TARGET_KERNEL_CONFIG := paranoid_bacon_defconfig
+TARGET_KERNEL_CONFIG := cyanogenmod_bacon_defconfig
 BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=bacon user_debug=31 msm_rtb.filter=0x3F ehci-hcd.park=3
 TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-linaro/arm-cortex_a9-linux-gnueabihf-linaro_4.9.2-2014.10/bin/arm-cortex_a9-linux-gnueabihf-
 
@@ -52,9 +52,9 @@ TARGET_WCNSS_MAC_PREFIX := e8bba8
 BOARD_VOLD_CRYPTFS_MIGRATE := true
 
 BOARD_NFC_CHIPSET := pn547
-BOARD_NFC_HAL_SUFFIX := bacon
 
-#AUDIO_FEATURE_ENABLED_ULTRA_LOW_LATENCY := true
+AUDIO_FEATURE_LOW_LATENCY_PRIMARY := true
+AUDIO_FEATURE_ENABLED_LOW_LATENCY_CAPTURE := true
 
 # inherit from the proprietary version
 -include vendor/oneplus/bacon/BoardConfigVendor.mk

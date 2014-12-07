@@ -17,6 +17,10 @@
 # overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay vendor/extra/overlays/phone-1080p
 
+# Boot animation
+TARGET_SCREEN_HEIGHT := 1920
+TARGET_SCREEN_WIDTH := 1080
+
 # Haters gonna hate..
 PRODUCT_CHARACTERISTICS := nosdcard
 
@@ -41,7 +45,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     NfcNci \
     Tag \
-    nfc_nci.bacon \
+    nfc_nci.pn54x.default \
     com.android.nfc_extras
 
 # NFC access control + feature files + configuration
@@ -56,16 +60,15 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.default_network=20
 
-# Do not power down SIM card when modem is sent to Low Power Mode.
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.radio.apm_sim_not_pwdn=1 \
-    persist.radio.eons.enabled=false
+# Device uses high-density artwork where available
+PRODUCT_AAPT_CONFIG := normal hdpi xhdpi xxhdpi
+PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
-# Ril
-PRODUCT_PROPERTY_OVERRIDES += \
-    rild.libpath=/system/vendor/lib/libril-qc-qmi-1.so \
-    ril.subscription.types=NV,RUIM \
-    ro.telephony.ril_class=OppoRIL
+# call dalvik heap config
+$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
+
+# call hwui memory config
+$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
 
 # call the proprietary setup
 $(call inherit-product-if-exists, vendor/oneplus/bacon/bacon-vendor.mk)
